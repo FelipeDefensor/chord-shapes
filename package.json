@@ -1,0 +1,32 @@
+{
+  "name": "chord-shapes",
+  "version": "0.0.1",
+  "description": "Generate all playable shapes for any set of notes on any stringed instrument.",
+  "main": "main.js",
+  "types": "*.d.ts",
+  "type": "module",
+  "scripts": {
+    "test": "jest"
+  },
+  "jest": {
+    "transform": {
+      "^.+\\.[t|j]sx?$": "babel-jest"
+    }
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com/FelipeDefensor/chord-shapes.git"
+  },
+  "author": "Felipe D. Martins",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/FelipeDefensor/chord-shapes/issues"
+  },
+  "homepage": "https://github.com/FelipeDefensor/chord-shapes#readme",
+  "devDependencies": {
+    "@babel/preset-env": "^7.26.9",
+    "babel-jest": "^29.7.0",
+    "jest": "^29.7.0",
+    "seedrandom": "^3.0.5"
+  }
+}
