@@ -1,3 +1,4 @@
+export module "chord-shapes" {
   interface Barre {
     fromString: number;
     toString: number;
@@ -8,7 +9,7 @@
     frets: number[];
     barres: Barre[];
   }
-  
+
   declare function getShapes(
     pitches: number[],
     strings: number[],
@@ -17,7 +18,6 @@
     maxIntervalBetweenPitches?: number,
     fretboardFingers?: number,
     doublings?: boolean,
-    bass?: null,
+    bass?: null
   ): Shape[];
-
-  export { getShapes, Shape };
+}
