@@ -1,4 +1,4 @@
-import { find } from "./main.js";
+import { getShapes } from "./main.js";
 import seedrandom from "seedrandom";
 
 const normalForms = [
@@ -363,12 +363,13 @@ function randomIntFromInterval(min, max) {
 describe.each(normalForms)("shapes for pitches %s", (...inputPitchClasses) => {
   const tranposition = randomIntFromInterval(0, 11);
   inputPitchClasses = inputPitchClasses.map((p) => (p + tranposition) % 12);
+  if (inputPitchClasses.length < inputPitchClasses.length) return;
   const stringPitches = [4, 9, 14, 19, 23, 28];
   const maxIntervalBetweenPitches = 12;
   const maxFretSpan = 4;
   const fretCount = 20;
   const doublings = false;
-  const result = find(
+  const result = getShapes(
     inputPitchClasses,
     stringPitches,
     fretCount,
