@@ -212,15 +212,17 @@ function getShapes(
             mostCommonFretCount = count;
           }
         }
-        let barreStart = null;
-        let barreEnd = strings.length;
-        for (let i = 0; i < frets.length; i++) {
-          if (frets[i] == mostCommonFret) {
-            if (!barreStart) {
-              barreStart = i + 1;
+        let mostCommonFretStrings = shape.frets
+          .map((fret, i) => {
+            if (fret == mostCommonFret) {
+              return i;
+            } else {
+              return null;
             }
-          }
-        }
+          })
+          .filter((i) => i !== null);
+        let barreStart = Math.min(...mostCommonFretStrings) + 1;
+        let barreEnd = Math.max(...mostCommonFretStrings) + 1;
 
         // check if barre obstructs necessary frets
         const obstructedFrets = shape["frets"].map((fret, stringIdx) => {
@@ -228,7 +230,7 @@ function getShapes(
             fret != "x" &&
             fret < mostCommonFret &&
             stringIdx > barreStart - 1 &&
-            stringIdx <= barreEnd - 1
+            stringIdx < barreEnd - 1
           ) {
             return true;
           } else {
@@ -236,15 +238,22 @@ function getShapes(
           }
         });
         const remainingPitchClasses = frets
-          .filter((fret, i) => !obstructedFrets[i] && fret != "x")
+          .map((fret, i) => (obstructedFrets[i] ? "x" : fret))
+          .filter((fret, i) => fret != "x")
           .map((pitch, i) => (pitch + strings[i]) % 12);
+
+        // if obstruction makes chord possible without barres
+        // then it will already be in finalShapes
+        if (remainingPitchClasses.length <= fretboardFingers) {
+          continue;
+        }
 
         const remainingPCSet = new Set(remainingPitchClasses);
         if (remainingPCSet.size == pitchAmount) {
           shape["barres"].push({
             fromString: barreStart,
             toString: barreEnd,
-            fret: mostCommonFret,
+            fret: Number(mostCommonFret),
           });
           finalShapes.push(shape);
         }

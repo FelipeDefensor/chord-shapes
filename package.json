@@ -1,6 +1,6 @@
 {
   "name": "chord-shapes",
-  "version": "0.0.1",
+  "version": "0.0.3",
   "description": "Generate all playable shapes for any set of notes on any stringed instrument.",
   "main": "main.js",
   "types": "*.d.ts",
